@@ -1,0 +1,14 @@
+# Build / deps
+.next
+.vercel
+node_modules
+coverage
+out
+build
+pnpm-lock.yaml
+
+# Local Vercel MCP / deploy artifacts
+.vercel-*.json
+.vercel-args-final.json
+.vercel-deploy-files.json
+.vercel-mcp-deploy.json
