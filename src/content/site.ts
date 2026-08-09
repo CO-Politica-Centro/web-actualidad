@@ -23,5 +23,6 @@ export const site = {
     { href: "/", label: "Inicio" },
     { href: "/noticias", label: "Noticias" },
     { href: "/blog", label: "Blog" },
+    { href: "/organizacion", label: "Organización" },
   ] as NavItem[],
 } as const;
