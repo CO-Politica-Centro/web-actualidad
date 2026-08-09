@@ -1,0 +1,40 @@
+---
+description: Commits del agente — sin trailers de co-autor de IA/Cursor
+alwaysApply: true
+---
+
+# Commits de Git
+
+Al crear o enmendar commits en nombre del usuario:
+
+- **Nunca** añadir `Co-authored-by:`, `Signed-off-by:` de Cursor, ni ninguna línea de co-autor de IA/IDE salvo petición explícita.
+- El mensaje debe contener **solo** lo pedido (Conventional Commits subject/body, etc.).
+- **Siempre** commitear con archivo de mensaje, no con `-m` inline:
+
+  ```bash
+  git commit -F /tmp/commit-msg.txt
+  ```
+
+- **Siempre** verificar justo después:
+
+  ```bash
+  git log -1 --format=%B
+  ```
+
+  Si aparece `Co-authored-by: Cursor` (u otro trailer de Cursor/IA), corregir **antes** de `git push`.
+  Si `git commit --amend -F` reinyecta el trailer:
+
+  ```bash
+  grep -v '^Co-authored-by: Cursor' /tmp/commit-msg.txt > /tmp/commit-msg-clean.txt
+  git commit --amend -F /tmp/commit-msg-clean.txt
+  git log -1 --format=%B
+  ```
+
+- Si el trailer ya se **publicó**, no enmendar un solo commit: reescribir historial de los commits afectados y `git push --force-with-lease` **solo** con petición explícita.
+
+## `/auto-commit` y agentes
+
+- Seguir [`.cursor/commands/auto-commit.md`](../commands/auto-commit.md) para el estilo del mensaje.
+- **Nunca** restaurar archivos o líneas borradas antes del commit salvo petición explícita.
+- **Nunca** hacer push de un commit que aún muestre trailer de Cursor en `git log -1 --format=%B`.
+- No actualizar `git config`. No usar `--no-verify` salvo petición explícita.

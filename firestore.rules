@@ -1,0 +1,86 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function validTipo(tipo) {
+      return tipo in ['noticia', 'blog'];
+    }
+
+    function validEstado(estado) {
+      return estado in ['borrador', 'publicado'];
+    }
+
+    function validPostKeys() {
+      return request.resource.data.keys().hasOnly([
+        'tipo',
+        'slug',
+        'titulo',
+        'resumen',
+        'cuerpoHtml',
+        'portadaUrl',
+        'portadaAlt',
+        'estado',
+        'publicadoEn',
+        'actualizadoEn',
+        'creadoEn',
+        'autorUid',
+        'autorNombre',
+        'tags'
+      ]);
+    }
+
+    function validPostWrite() {
+      return validPostKeys()
+        && validTipo(request.resource.data.tipo)
+        && validEstado(request.resource.data.estado)
+        && request.resource.data.slug is string
+        && request.resource.data.slug.size() > 0
+        && request.resource.data.slug.size() <= 120
+        && request.resource.data.titulo is string
+        && request.resource.data.titulo.size() > 0
+        && request.resource.data.titulo.size() <= 200
+        && request.resource.data.resumen is string
+        && request.resource.data.resumen.size() <= 500
+        && request.resource.data.cuerpoHtml is string
+        && request.resource.data.cuerpoHtml.size() <= 200000
+        && request.resource.data.portadaAlt is string
+        && request.resource.data.portadaAlt.size() <= 200
+        && request.resource.data.autorUid is string
+        && request.resource.data.autorNombre is string
+        && request.resource.data.tags is list
+        && request.resource.data.actualizadoEn is timestamp
+        && request.resource.data.creadoEn is timestamp
+        && (
+          request.resource.data.portadaUrl == null
+          || request.resource.data.portadaUrl is string
+        )
+        && (
+          request.resource.data.publicadoEn == null
+          || request.resource.data.publicadoEn is timestamp
+        );
+    }
+
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    match /posts/{postId} {
+      allow get: if resource.data.estado == 'publicado' || isAdmin();
+      allow list: if resource.data.estado == 'publicado' || isAdmin();
+      allow create: if isAdmin()
+        && validPostWrite()
+        && request.resource.data.autorUid == request.auth.uid;
+      allow update: if isAdmin() && validPostWrite();
+      allow delete: if isAdmin();
+    }
+  }
+}

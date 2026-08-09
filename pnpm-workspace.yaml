@@ -1,0 +1,7 @@
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade
+allowBuilds:
+  "@firebase/util": false
+  protobufjs: false
+  sharp: false
+  unrs-resolver: false

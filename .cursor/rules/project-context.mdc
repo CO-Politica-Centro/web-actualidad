@@ -1,0 +1,35 @@
+---
+description: Contexto de producto e identidad de web-actualidad
+alwaysApply: true
+---
+
+# Contexto del proyecto — web-actualidad
+
+Sitio de **noticias y blog** del movimiento **CO Politica Centro** (Colombia, liberalismo social). Org: [CO-Politica-Centro](https://github.com/CO-Politica-Centro). Comunidad: [Discord](https://discord.gg/VKjgAbDDvC).
+
+## Idioma y comunicación
+
+- **UI, copy, README y docs del repo:** español.
+- **Mensajes de commit:** inglés (Conventional Commits).
+- **Respuestas del agente en el chat:** español.
+
+## Principios de producto
+
+- Es una **plantilla editorial** del movimiento, no un medio con personería jurídica.
+- No inventar noticias, cargos, alianzas ni hechos políticos no verificados.
+- Contacto publicidad: `rafaelsolanov@web.de`.
+- Contenido publicado vía panel `/admin` + Firebase; seeds solo marcados como DEMO.
+
+## Alcance técnico actual
+
+- Next.js App Router + React + TypeScript + Tailwind v4.
+- Firebase Auth + Firestore + Storage; TipTap en admin.
+- Utilidad `cn()` en `src/lib/utils.ts`.
+- CI: lint, typecheck, format, test, build (`pnpm run ci`).
+- Deploy: Vercel (`NEXT_PUBLIC_SITE_URL`).
+
+## Qué no hacer por defecto
+
+- No añadir comentarios, newsletter, pagos ni CMS externos sin petición explícita.
+- No cambiar el branding a “AI purple” / dark glow genérico.
+- No invitar colaboradores ni tocar settings de la org desde este repo.

@@ -1,0 +1,38 @@
+---
+description: Convenciones de stack Next.js, Tailwind, tooling y calidad
+alwaysApply: true
+---
+
+# Stack y convenciones
+
+## Stack
+
+- **Next.js 16** (App Router), **React 19**, **TypeScript**, **Tailwind CSS v4**
+- Gestor: **pnpm** `11.1.1`, Node `>=22`
+- `clsx` + `tailwind-merge` → `cn()` en `@/lib/utils`
+- Prettier + `prettier-plugin-tailwindcss`, ESLint (`eslint-config-next` + prettier)
+- Vitest para tests unitarios mínimos
+- `react-doctor` disponible vía `pnpm react:doctor`
+- `@vercel/analytics` en el layout raíz
+
+## Scripts habituales
+
+| Comando | Uso |
+| --- | --- |
+| `pnpm dev` | Desarrollo |
+| `pnpm run ci` | Lint + typecheck + format:check + test + build |
+| `pnpm format` | Formatear |
+| `pnpm react:doctor` | Auditoría React |
+
+## Código
+
+- Preferir Server Components; `"use client"` solo cuando haga falta.
+- Tipado estricto; evitar `any`.
+- Rutas y textos de UI en **español**.
+- Variables de entorno: documentar en `.env.example`; no commitear `.env*`.
+- Mantener `lang="es"` en el layout.
+
+## CI / Vercel
+
+- Workflow en `.github/workflows/ci.yml`
+- No romper el script `ci` ni el frozen lockfile de pnpm sin motivo

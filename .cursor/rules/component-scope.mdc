@@ -1,0 +1,33 @@
+---
+description: Colocar componentes, hooks y utils según su alcance real
+alwaysApply: true
+---
+
+# Alcance de componentes y código compartido
+
+Coloca cada archivo donde **realmente se usa**. No crear piezas “globales por si acaso”.
+
+## Árbol de decisión
+
+1. **¿Solo una ruta de App Router?** → `src/app/<ruta>/_components/`
+2. **¿Solo una feature** (`posts`, `admin`, …)? → `src/features/<feature>/`
+3. **¿Shell global (header/footer)?** → `src/components/` (layout/shared)
+4. **¿UI reutilizada en 2+ sitios?** → `src/components/ui/`
+5. **¿Utilidad transversal?** → `src/lib/`
+6. **¿Hook de una sola feature?** → junto a esa feature; si es transversal → `src/hooks/`
+7. **¿Duda?** → scope más pequeño primero.
+
+## Mapa actual del repo
+
+| Alcance | Ubicación |
+| --- | --- |
+| Páginas | `src/app/` |
+| Features editoriales/admin | `src/features/` |
+| Componentes compartidos | `src/components/` |
+| Utilidades / Firebase | `src/lib/` |
+
+## Reglas
+
+- Prohibido promover a `components/ui` sin un **segundo consumidor**.
+- Al crecer una página, extraer a `_components` o `features/` en lugar de inflar `page.tsx`.
+- Misma lógica para hooks, utils e iconos de dominio.
