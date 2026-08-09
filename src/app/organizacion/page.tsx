@@ -88,23 +88,16 @@ export default function OrganizacionPage() {
       <section className="mt-16" aria-labelledby="path-heading">
         <h2
           id="path-heading"
-          className="font-display text-foreground text-2xl font-semibold"
+          className="font-display text-foreground text-2xl font-semibold sm:text-3xl"
         >
           El camino
         </h2>
         <p className="text-muted mt-3 max-w-3xl text-base leading-relaxed">
           {organizationOverview.pathSummary}
         </p>
-      </section>
-
-      <section className="mt-12" aria-labelledby="phases-map-heading">
-        <h2
-          id="phases-map-heading"
-          className="font-display text-foreground mb-6 text-2xl font-semibold"
-        >
-          Mapa de fases
-        </h2>
-        <PhaseMap phases={phases} />
+        <div className="mt-10">
+          <PhaseMap phases={phases} />
+        </div>
       </section>
     </div>
   );
