@@ -76,9 +76,16 @@ export function AdminShell({ children }: { children: ReactNode }) {
             {user ? (
               <button
                 type="button"
-                onClick={() =>
-                  void logout().then(() => router.push("/admin/entrar"))
-                }
+                onClick={() => {
+                  void (async () => {
+                    try {
+                      await logout();
+                      router.push("/admin/entrar");
+                    } catch {
+                      router.push("/admin/entrar");
+                    }
+                  })();
+                }}
                 className="border-border-strong hover:bg-foreground/5 inline-flex min-h-11 items-center rounded-md border px-3 text-sm font-medium"
               >
                 Salir

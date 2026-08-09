@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { PostEditor } from "@/features/admin/post-editor";
@@ -32,7 +33,9 @@ export function PostForm({ initial }: Props) {
   const [estado, setEstado] = useState<PostEstado>(
     initial?.estado ?? "borrador",
   );
-  const [tagsText, setTagsText] = useState((initial?.tags ?? []).join(", "));
+  const [tagsText, setTagsText] = useState(() =>
+    (initial?.tags ?? []).join(", "),
+  );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -183,12 +186,16 @@ export function PostForm({ initial }: Props) {
             <span className="text-muted text-sm">Subiendo…</span>
           ) : null}
           {portadaUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={portadaUrl}
-              alt=""
-              className="border-border mt-2 aspect-[16/9] w-full max-w-sm border object-cover"
-            />
+            <div className="border-border relative mt-2 aspect-[16/9] w-full max-w-sm overflow-hidden border">
+              <Image
+                src={portadaUrl}
+                alt=""
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, 24rem"
+                unoptimized
+              />
+            </div>
           ) : null}
         </label>
         <label className="flex flex-col gap-2 text-sm font-medium">

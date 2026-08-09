@@ -6,8 +6,6 @@ import { BrandMark } from "@/components/brand-mark";
 import { LinkUnderline } from "@/components/link-underline";
 import { site } from "@/content/site";
 
-const year = new Date().getFullYear();
-
 function FooterNavLink({
   href,
   label,
@@ -43,6 +41,7 @@ function FooterNavLink({
 
 export function SiteFooter() {
   const pathname = usePathname();
+  const year = new Date().getFullYear();
   if (pathname.startsWith("/admin")) return null;
 
   return (

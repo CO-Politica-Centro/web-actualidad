@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import { site } from "@/content/site";
-
-const DEFAULT_DESCRIPTION = site.description;
 
 export function getSiteUrl(): string {
   const raw = process.env.NEXT_PUBLIC_SITE_URL;
@@ -53,5 +50,3 @@ export function pageMetadata({
     },
   };
 }
-
-export const defaultSiteDescription = DEFAULT_DESCRIPTION;

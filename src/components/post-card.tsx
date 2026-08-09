@@ -4,14 +4,16 @@ import type { Post } from "@/features/posts/types";
 import { postHref } from "@/features/posts/types";
 import { cn } from "@/lib/utils";
 
+const dateFormatter = new Intl.DateTimeFormat("es-CO", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
 function formatDate(iso: string | null) {
   if (!iso) return null;
   try {
-    return new Intl.DateTimeFormat("es-CO", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }).format(new Date(iso));
+    return dateFormatter.format(new Date(iso));
   } catch {
     return null;
   }

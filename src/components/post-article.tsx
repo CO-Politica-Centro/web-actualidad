@@ -1,14 +1,17 @@
+import Image from "next/image";
 import { sanitizePostHtml } from "@/features/posts/sanitize";
 import type { Post } from "@/features/posts/types";
+
+const dateFormatter = new Intl.DateTimeFormat("es-CO", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
 
 function formatDate(iso: string | null) {
   if (!iso) return null;
   try {
-    return new Intl.DateTimeFormat("es-CO", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    }).format(new Date(iso));
+    return dateFormatter.format(new Date(iso));
   } catch {
     return null;
   }
@@ -39,12 +42,17 @@ export function PostArticle({ post }: { post: Post }) {
       </header>
 
       {post.portadaUrl ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={post.portadaUrl}
-          alt={post.portadaAlt || post.titulo}
-          className="border-border mb-10 aspect-[16/9] w-full border object-cover"
-        />
+        <div className="border-border relative mb-10 aspect-[16/9] w-full overflow-hidden border">
+          <Image
+            src={post.portadaUrl}
+            alt={post.portadaAlt || post.titulo}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 65ch"
+            priority
+            unoptimized
+          />
+        </div>
       ) : null}
 
       <div
