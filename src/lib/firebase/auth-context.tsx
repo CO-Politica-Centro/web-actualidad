@@ -18,6 +18,7 @@ type AuthContextValue = {
   configured: boolean;
   signInGoogle: () => Promise<void>;
   signInEmail: (email: string, password: string) => Promise<void>;
+  signUpEmail: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -61,6 +62,13 @@ export function FirebaseAuthProvider({ children }: { children: ReactNode }) {
     await signInWithEmailAndPassword(auth, email, password);
   }, []);
 
+  const signUpEmail = useCallback(async (email: string, password: string) => {
+    const auth = getFirebaseAuth();
+    if (!auth) throw new Error("Firebase no configurado");
+    const { createUserWithEmailAndPassword } = await import("firebase/auth");
+    await createUserWithEmailAndPassword(auth, email, password);
+  }, []);
+
   const logout = useCallback(async () => {
     const auth = getFirebaseAuth();
     if (!auth) return;
@@ -75,9 +83,10 @@ export function FirebaseAuthProvider({ children }: { children: ReactNode }) {
       configured,
       signInGoogle,
       signInEmail,
+      signUpEmail,
       logout,
     }),
-    [user, ready, configured, signInGoogle, signInEmail, logout],
+    [user, ready, configured, signInGoogle, signInEmail, signUpEmail, logout],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -24,4 +24,4 @@ Ejemplo de documento:
 }
 ```
 
-También puedes crear posts desde `/admin` tras añadir tu UID en `admins/{uid}`.
+También puedes crear posts desde `/admin` tras registrarte (o Google) en `/admin/entrar` y que un programador añada tu UID en `admins/{uid}`.

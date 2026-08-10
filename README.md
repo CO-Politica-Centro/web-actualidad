@@ -40,7 +40,11 @@ pnpm run ci
 firebase deploy --only firestore:rules,firestore:indexes,storage
 ```
 
-4. Crea un usuario en Auth y un documento `admins/{uid}`:
+4. Da de alta un administrador (el registro en `/admin/entrar` **no** otorga acceso por sí solo):
+
+   1. La persona crea cuenta (email/contraseña) o entra con Google en `/admin/entrar`.
+   2. Copia el **UID** que muestra la pantalla de “rol pendiente”.
+   3. Un programador crea en Firestore el documento `admins/{uid}`:
 
 ```json
 {
@@ -50,18 +54,20 @@ firebase deploy --only firestore:rules,firestore:indexes,storage
 }
 ```
 
+4. Tras eso, puede Entrar (o Continuar con Google) y publicar.
+
 5. (Opcional) crea posts DEMO según [`scripts/SEED.md`](scripts/SEED.md).
 
 ## Rutas
 
-| Ruta                                       | Descripción       |
-| ------------------------------------------ | ----------------- |
-| `/`                                        | Portada editorial |
-| `/noticias`, `/noticias/[slug]`            | Noticias          |
-| `/blog`, `/blog/[slug]`                    | Blog              |
-| `/admin/entrar`                            | Login             |
-| `/admin`                                   | Listado de posts  |
-| `/admin/posts/nuevo` · `/admin/posts/[id]` | Editor            |
+| Ruta                                       | Descripción          |
+| ------------------------------------------ | -------------------- |
+| `/`                                        | Portada editorial    |
+| `/noticias`, `/noticias/[slug]`            | Noticias             |
+| `/blog`, `/blog/[slug]`                    | Blog                 |
+| `/admin/entrar`                            | Login / crear cuenta |
+| `/admin`                                   | Listado de posts     |
+| `/admin/posts/nuevo` · `/admin/posts/[id]` | Editor               |
 
 ## Variables de entorno
 
