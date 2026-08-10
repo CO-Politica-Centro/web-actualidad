@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import { BrandMark } from "@/components/brand-mark";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -30,7 +30,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
     }
 
     if (!user) {
-      router.replace("/admin/entrar");
+      queueMicrotask(() => setAdminOk(false));
       return;
     }
 
@@ -38,13 +38,20 @@ export function AdminShell({ children }: { children: ReactNode }) {
     void isCurrentUserAdmin().then((ok) => {
       if (cancelled) return;
       setAdminOk(ok);
-      if (!ok) router.replace("/admin/entrar?error=forbidden");
     });
 
     return () => {
       cancelled = true;
     };
-  }, [user, loading, configured, isLogin, router]);
+  }, [user, loading, configured, isLogin]);
+
+  if (!isLogin && !loading && configured && !user) {
+    redirect("/admin/entrar");
+  }
+
+  if (!isLogin && adminOk === false && user) {
+    redirect("/admin/entrar?error=forbidden");
+  }
 
   if (!isLogin && (loading || adminOk === null)) {
     return (

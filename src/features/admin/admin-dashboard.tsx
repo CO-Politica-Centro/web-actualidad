@@ -19,22 +19,22 @@ export function AdminDashboard() {
 
   useEffect(() => {
     let cancelled = false;
-    queueMicrotask(() => {
-      void (async () => {
-        setLoading(true);
-        setError(null);
-        try {
-          const data = await listAdminPosts({ tipo, estado });
-          if (!cancelled) setPosts(data);
-        } catch (err) {
-          if (!cancelled) {
-            setError(err instanceof Error ? err.message : "No se pudo cargar");
-          }
-        } finally {
-          if (!cancelled) setLoading(false);
-        }
-      })();
-    });
+    setLoading(true);
+    setError(null);
+
+    void listAdminPosts({ tipo, estado })
+      .then((data) => {
+        if (cancelled) return;
+        setPosts(data);
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        setError(err instanceof Error ? err.message : "No se pudo cargar");
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
     return () => {
       cancelled = true;
     };

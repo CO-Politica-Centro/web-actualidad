@@ -15,13 +15,21 @@ service firebase.storage {
         && request.resource.size < 5 * 1024 * 1024;
     }
 
+    // Portadas e imágenes inline del sitio público: solo get de objetos imagen.
+    function isStoredImage() {
+      return resource.contentType.matches('image/.*')
+        && resource.size < 5 * 1024 * 1024;
+    }
+
     match /covers/{allPaths=**} {
-      allow read: if true;
+      allow get: if isStoredImage();
+      allow list: if false;
       allow write: if isAdmin() && isImage();
     }
 
     match /inline/{allPaths=**} {
-      allow read: if true;
+      allow get: if isStoredImage();
+      allow list: if false;
       allow write: if isAdmin() && isImage();
     }
   }

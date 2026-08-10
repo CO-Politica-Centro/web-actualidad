@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState, type FormEvent } from "react";
 import { isCurrentUserAdmin } from "@/features/posts/queries-client";
 import { useFirebaseAuth } from "@/lib/firebase/auth-context";
@@ -11,21 +11,24 @@ const FORBIDDEN_MESSAGE =
 function LoginFormInner() {
   const { user, loading, configured, signInEmail, signInGoogle } =
     useFirebaseAuth();
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [adminReady, setAdminReady] = useState(false);
   const forbidden = searchParams.get("error") === "forbidden";
   const displayError = error ?? (forbidden ? FORBIDDEN_MESSAGE : null);
 
   useEffect(() => {
-    if (loading || !user) return;
+    if (loading || !user) {
+      queueMicrotask(() => setAdminReady(false));
+      return;
+    }
     let cancelled = false;
     void isCurrentUserAdmin().then((ok) => {
       if (cancelled) return;
-      if (ok) router.replace("/admin");
+      if (ok) setAdminReady(true);
       else
         setError(
           "Sesión iniciada, pero no eres administrador. Contacta al equipo técnico.",
@@ -34,7 +37,7 @@ function LoginFormInner() {
     return () => {
       cancelled = true;
     };
-  }, [user, loading, router]);
+  }, [user, loading]);
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault();
@@ -80,6 +83,7 @@ function LoginFormInner() {
 
   return (
     <div className="panel max-w-md">
+      {adminReady ? redirect("/admin") : null}
       <h1 className="font-display text-2xl font-semibold">Entrar al panel</h1>
       <p className="text-muted mt-2 text-base">
         Solo cuentas listadas en <code className="text-sm">admins</code>.
