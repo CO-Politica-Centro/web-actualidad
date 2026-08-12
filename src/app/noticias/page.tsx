@@ -5,9 +5,9 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 60;
 
 export const metadata = pageMetadata({
-  title: "Noticias",
+  title: "Noticias que mueven al centro",
   description:
-    "Noticias y comunicados de CO Politica Centro: actualidad del movimiento.",
+    "Comunicados y hechos del movimiento: entérate primero y comparte con criterio.",
   path: "/noticias",
 });
 

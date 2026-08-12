@@ -7,9 +7,9 @@ export type NavItem = {
 export const site = {
   name: "CO Politica Centro",
   shortName: "Actualidad · Centro",
-  tagline: "Noticias y blog del centro liberal social",
+  tagline: "Noticias y análisis para el centro que actúa",
   description:
-    "Actualidad editorial de CO Politica Centro: noticias del movimiento y blog de análisis ciudadano.",
+    "Noticias del movimiento y blog ciudadano: lo que pasa, por qué importa y qué puedes hacer.",
   disclaimer:
     "Somos un movimiento en consolidación. Este sitio publica contenidos editoriales; no implica personería jurídica ni candidaturas inscritas.",
   urls: {

@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { site } from "@/content/site";
 import { FirebaseAuthProvider } from "@/lib/firebase/auth-context";
-import { getSiteUrl } from "@/lib/seo";
+import { getSiteUrl, SITE_SEO } from "@/lib/seo";
 import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
@@ -20,24 +20,22 @@ const body = Source_Sans_3({
   subsets: ["latin"],
 });
 
-function siteMetadataBase(): URL {
-  const fallback = "http://localhost:3000";
-  const raw = process.env.NEXT_PUBLIC_SITE_URL;
-  if (!raw) return new URL(fallback);
-  try {
-    return new URL(raw);
-  } catch {
-    return new URL(fallback);
-  }
-}
-
 export const metadata: Metadata = {
   title: {
-    default: `${site.shortName} — CO Politica Centro`,
-    template: `%s · ${site.shortName}`,
+    default: SITE_SEO.titleDefault,
+    template: SITE_SEO.titleTemplate,
   },
-  description: site.description,
-  metadataBase: siteMetadataBase(),
+  description: SITE_SEO.description,
+  metadataBase: new URL(getSiteUrl()),
+  applicationName: SITE_SEO.siteName,
+  authors: [{ name: site.name }],
+  creator: site.name,
+  keywords: [
+    "actualidad política Colombia",
+    "noticias centro",
+    "blog ciudadano",
+    "CO Politica Centro",
+  ],
   icons: {
     icon: [
       { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
@@ -48,20 +46,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_CO",
-    siteName: site.shortName,
-    images: [
-      {
-        url: "/brand/og-social.png",
-        width: 1200,
-        height: 630,
-        alt: site.shortName,
-      },
-    ],
+    siteName: SITE_SEO.siteName,
+    title: SITE_SEO.titleDefault,
+    description: SITE_SEO.description,
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/brand/og-social.png"],
+    title: SITE_SEO.titleDefault,
+    description: SITE_SEO.description,
   },
+  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({
@@ -86,6 +80,7 @@ export default function RootLayout({
         name: site.shortName,
         url: siteUrl,
         inLanguage: "es-CO",
+        description: site.description,
         publisher: { "@id": `${siteUrl}/#organization` },
       },
     ],

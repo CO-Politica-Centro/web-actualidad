@@ -9,9 +9,9 @@ import { PhaseMap } from "./_components/phase-map";
 import { PhaseStatusBadge } from "./_components/phase-status-badge";
 
 export const metadata = pageMetadata({
-  title: "Organización · plan de madurez",
+  title: "Cómo maduramos como organización",
   description:
-    "Plan organizativo de CO Política Centro: del diagnóstico territorial al camino hacia un partido formal, con disclaimers claros.",
+    "Del diagnóstico territorial al camino institucional: el plan de madurez de CO Politica Centro, con honestidad y pasos claros.",
   path: "/organizacion",
 });
 

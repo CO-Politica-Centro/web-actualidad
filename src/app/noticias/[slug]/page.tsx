@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props) {
     title: post.titulo,
     description: post.resumen,
     path: `/noticias/${post.slug}`,
-    image: post.portadaUrl ?? "/brand/og-social.png",
+    ...(post.portadaUrl ? { image: post.portadaUrl } : {}),
     type: "article",
   });
 }

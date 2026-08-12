@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 60;
 
 export const metadata = pageMetadata({
-  title: site.shortName,
+  title: "Actualidad Centro — Noticias y análisis",
   description: site.description,
   path: "/",
 });

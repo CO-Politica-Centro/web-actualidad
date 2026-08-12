@@ -5,9 +5,9 @@ import { pageMetadata } from "@/lib/seo";
 export const revalidate = 60;
 
 export const metadata = pageMetadata({
-  title: "Blog",
+  title: "Blog: ideas para debatir y actuar",
   description:
-    "Análisis y opinión de CO Politica Centro: ideas para una política ciudadana.",
+    "Análisis ciudadano sin ruido: argumentos claros del centro liberal social para Colombia.",
   path: "/blog",
 });
 
