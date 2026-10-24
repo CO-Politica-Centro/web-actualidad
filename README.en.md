@@ -26,7 +26,7 @@ Site of CO Politica Centro. It is at [web-actualidad-co-politica.vercel.app](htt
   </a>
 </p>
 
-## ✨ Features
+## Features
 
 - News and blog of the movement.
 - Visual admin at `/admin`, with TipTap.
@@ -36,13 +36,13 @@ Site of CO Politica Centro. It is at [web-actualidad-co-politica.vercel.app](htt
 > Signing up at `/admin/entrar` does not make that person an admin. Admin access is granted
 > separately.
 
-## 🛠️ Tech stack
+## Tech stack
 
 - **Next.js, React, and Tailwind** — the site.
 - **Firebase** — Auth, Firestore, and Storage.
 - **pnpm 11.1.1** — Node 22 or newer.
 
-## 🚀 Quick start
+## Quick start
 
 ```bash
 pnpm install
@@ -53,14 +53,14 @@ pnpm dev
 > [!IMPORTANT]
 > `pnpm run ci` runs lint, types, format, tests, and build. Node 22 is required.
 
-## 📖 Usage
+## Usage
 
 Fill `NEXT_PUBLIC_FIREBASE_*` in `.env.local`. Rules deploy with `firebase deploy --only firestore:rules,firestore:indexes,storage`.
 
 > [!TIP]
 > `pnpm test` runs Vitest without starting the site.
 
-## 🤝 Contributing
+## Contributing
 
 > [!CAUTION]
 > The suggested Firebase project is `web-actualidad-cpc`. Do not reuse another site of the movement.
@@ -70,6 +70,6 @@ Repository of [CO Politica Centro](https://github.com/CO-Politica-Centro).
 > [!WARNING]
 > Do not commit `.env.local`. The tracked example is `.env.example`.
 
-## 📄 License
+## License
 
 This repository does not include a license file.

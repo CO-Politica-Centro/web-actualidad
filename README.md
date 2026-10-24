@@ -26,7 +26,7 @@ Sitio de CO Politica Centro. Está en [web-actualidad-co-politica.vercel.app](ht
   </a>
 </p>
 
-## ✨ Características
+## Características
 
 - Noticias y blog del movimiento.
 - Admin visual en `/admin`, con TipTap.
@@ -35,13 +35,13 @@ Sitio de CO Politica Centro. Está en [web-actualidad-co-politica.vercel.app](ht
 > [!NOTE]
 > El registro en `/admin/entrar` no vuelve administrador a quien entra. El alta se hace aparte.
 
-## 🛠️ Tecnologías
+## Tecnologías
 
 - **Next.js, React y Tailwind** — el sitio.
 - **Firebase** — Auth, Firestore y Storage.
 - **pnpm 11.1.1** — Node 22 o superior.
 
-## 🚀 Inicio rápido
+## Inicio rápido
 
 ```bash
 pnpm install
@@ -52,14 +52,14 @@ pnpm dev
 > [!IMPORTANT]
 > `pnpm run ci` junta lint, tipos, formato, pruebas y build. Hace falta Node 22.
 
-## 📖 Uso
+## Uso
 
 Completa `NEXT_PUBLIC_FIREBASE_*` en `.env.local`. Las reglas se despliegan con `firebase deploy --only firestore:rules,firestore:indexes,storage`.
 
 > [!TIP]
 > `pnpm test` corre Vitest sin levantar el sitio.
 
-## 🤝 Contribuir
+## Contribuir
 
 > [!CAUTION]
 > El proyecto Firebase sugerido es `web-actualidad-cpc`. No reutilices el de otro sitio del
@@ -70,6 +70,6 @@ Repositorio de [CO Politica Centro](https://github.com/CO-Politica-Centro).
 > [!WARNING]
 > No subas `.env.local`. El ejemplo versionado es `.env.example`.
 
-## 📄 Licencia
+## Licencia
 
 Este repositorio no incluye un archivo de licencia.
