@@ -1,80 +1,75 @@
-# web-actualidad — CO Politica Centro
+<p align="center">
+  <a href="README.md">Español</a> · <a href="README.en.md">English</a>
+</p>
 
-Sitio de **noticias** y **blog** del movimiento, con panel visual de administración respaldado por Firebase.
+<h1 align="center">Actualidad</h1>
 
-Sitios hermanos:
+<p align="center">
+  <img src="public/brand/og-social.jpg" alt="Imagen de marca de Actualidad, crema, oro y verde" width="100%">
+</p>
 
-- Portal: https://web-portal-co-politica.vercel.app
-- Capacitación: https://web-capacitacion-co-politica.vercel.app
+<p align="center">Noticias y blog del movimiento, con admin en Firebase.</p>
 
-## Stack
+Sitio de CO Politica Centro. Está en [web-actualidad-co-politica.vercel.app](https://web-actualidad-co-politica.vercel.app). Los hermanos son el [portal](https://web-portal-co-politica.vercel.app) y [capacitación](https://web-capacitacion-co-politica.vercel.app).
 
-- Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4
-- pnpm 11 · Node ≥ 22
-- Firebase Auth, Firestore, Storage
-- TipTap (editor WYSIWYG en `/admin`)
-- Vitest · Vercel Analytics
+<p align="center">
+  <a href="https://github.com/CO-Politica-Centro/web-actualidad/actions/workflows/ci.yml"><img src="https://github.com/CO-Politica-Centro/web-actualidad/actions/workflows/ci.yml/badge.svg" alt="Estado de CI"></a>
+</p>
 
-## Desarrollo
+<p align="center">
+  <a href="https://skillicons.dev">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,tailwind,firebase,pnpm&theme=dark&perline=6">
+      <source media="(prefers-color-scheme: light)" srcset="https://skillicons.dev/icons?i=nextjs,react,ts,tailwind,firebase,pnpm&theme=light&perline=6">
+      <img alt="Next.js, React, TypeScript, Tailwind, Firebase, pnpm" src="https://skillicons.dev/icons?i=nextjs,react,ts,tailwind,firebase,pnpm&perline=6">
+    </picture>
+  </a>
+</p>
+
+## ✨ Características
+
+- Noticias y blog del movimiento.
+- Admin visual en `/admin`, con TipTap.
+- CI en `ci.yml` y `pnpm test`.
+
+> [!NOTE]
+> El registro en `/admin/entrar` no vuelve administrador a quien entra. El alta se hace aparte.
+
+## 🛠️ Tecnologías
+
+- **Next.js, React y Tailwind** — el sitio.
+- **Firebase** — Auth, Firestore y Storage.
+- **pnpm 11.1.1** — Node 22 o superior.
+
+## 🚀 Inicio rápido
 
 ```bash
 pnpm install
 cp .env.example .env.local
-# Completa NEXT_PUBLIC_FIREBASE_*
 pnpm dev
 ```
 
-Calidad:
+> [!IMPORTANT]
+> `pnpm run ci` junta lint, tipos, formato, pruebas y build. Hace falta Node 22.
 
-```bash
-pnpm run ci
-```
+## 📖 Uso
 
-## Firebase (proyecto dedicado)
+Completa `NEXT_PUBLIC_FIREBASE_*` en `.env.local`. Las reglas se despliegan con `firebase deploy --only firestore:rules,firestore:indexes,storage`.
 
-1. Crea el proyecto Firebase (sugerido: `web-actualidad-cpc`).
-2. Activa **Authentication** (Email/Password + Google).
-3. Crea Firestore y Storage; despliega reglas:
+> [!TIP]
+> `pnpm test` corre Vitest sin levantar el sitio.
 
-```bash
-firebase deploy --only firestore:rules,firestore:indexes,storage
-```
+## 🤝 Contribuir
 
-4. Da de alta un administrador (el registro en `/admin/entrar` **no** otorga acceso por sí solo):
+> [!CAUTION]
+> El proyecto Firebase sugerido es `web-actualidad-cpc`. No reutilices el de otro sitio del
+> movimiento.
 
-   1. La persona crea cuenta (email/contraseña) o entra con Google en `/admin/entrar`.
-   2. Copia el **UID** que muestra la pantalla de “rol pendiente”.
-   3. Un programador crea en Firestore el documento `admins/{uid}`:
+Repositorio de [CO Politica Centro](https://github.com/CO-Politica-Centro).
 
-```json
-{
-  "email": "tu@correo.com",
-  "displayName": "Nombre",
-  "createdAt": "<timestamp>"
-}
-```
+> [!WARNING]
+> No subas `.env.local`. El ejemplo versionado es `.env.example`.
 
-4. Tras eso, puede Entrar (o Continuar con Google) y publicar.
+## 📄 Licencia
 
-5. (Opcional) crea posts DEMO según [`scripts/SEED.md`](scripts/SEED.md).
-
-## Rutas
-
-| Ruta                                       | Descripción          |
-| ------------------------------------------ | -------------------- |
-| `/`                                        | Portada editorial    |
-| `/noticias`, `/noticias/[slug]`            | Noticias             |
-| `/blog`, `/blog/[slug]`                    | Blog                 |
-| `/admin/entrar`                            | Login / crear cuenta |
-| `/admin`                                   | Listado de posts     |
-| `/admin/posts/nuevo` · `/admin/posts/[id]` | Editor               |
-
-## Variables de entorno
-
-Ver [`.env.example`](.env.example).
-
-## Notas de producto
-
-- No inventar noticias reales en seeds; usar el prefijo `[DEMO]`.
-- El HTML del cuerpo se sanitiza al guardar y al renderizar.
-- Tras publicar, el cliente intenta `POST /api/revalidate` (ISR ~60s).
+Este repositorio no incluye un archivo de licencia.
